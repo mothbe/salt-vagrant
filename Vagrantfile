@@ -16,9 +16,11 @@ Vagrant.configure("2") do |config|
 
 
     master.vm.provision "shell", inline: <<-SHELL
-      apt-get install -y --force-yes apt-transport-https
+      apt-get install -y --force-yes apt-transport-https mc
       wget -O bootstrap_salt.sh https://bootstrap.saltstack.com
       sh bootstrap_salt.sh -M -i master -A 127.0.0.1 stable
+      git clone https://github.com/mothbe/salt-states.git /srv/salt
+      git clone https://github.com/mothbe/salt-pillar.git /srv/pillar
     SHELL
   end
 
